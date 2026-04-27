@@ -3,257 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Printing | New Business Opportunities</title>
+    <title>3D Future | New Business Opportunities</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@300;500;700&display=swap');
         
         :root {
             --apple-bg: #f5f5f7;
             --apple-dark: #1d1d1f;
-            --accent-green: #a3e635;
+            --accent-green: #d1f266;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--apple-bg);
             color: var(--apple-dark);
-            margin: 0;
             overflow-x: hidden;
+            margin: 0;
         }
 
-        /* Hero Dark Section */
-        .hero-section {
-            background-color: #000;
-            color: #fff;
+        .hero-dark {
+            background-color: #000000;
+            color: #ffffff;
             min-height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            padding: 0 10%;
         }
+
+        .heading-font { font-family: 'Space+Grotesk', sans-serif; }
 
         .wireframe-cube {
-            width: 200px;
-            height: 200px;
-            border: 1px solid rgba(163, 230, 53, 0.3);
-            position: absolute;
-            right: 15%;
-            top: 50%;
-            transform: translateY(-50%) rotate(45deg);
-            animation: rotate 20s linear infinite;
+            width: 280px;
+            height: 280px;
+            border: 1px solid rgba(209, 242, 102, 0.3);
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotateCube 20s linear infinite;
         }
 
-        @keyframes rotate {
-            from { transform: translateY(-50%) rotateX(0) rotateY(0); }
-            to { transform: translateY(-50%) rotateX(360deg) rotateY(360deg); }
+        @keyframes rotateCube {
+            from { transform: rotateX(0deg) rotateY(0deg); }
+            to { transform: rotateX(360deg) rotateY(360deg); }
         }
 
-        /* Apple Style Typography */
-        .apple-title {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
+        .glass-card {
+            background: #ffffff;
+            border-radius: 28px;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .welcome-note {
-            max-width: 450px;
-            font-size: 1.1rem;
-            color: #86868b;
-            line-height: 1.5;
-            margin-top: 2rem;
+        .glass-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
         }
 
-        /* Infographic Grid */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 4rem 10%;
-            margin-top: -5vh;
+        .pill-button {
+            background: var(--accent-green);
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-box {
+            background: #111;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-curve {
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+            margin-top: -50px;
+            background: var(--apple-bg);
             position: relative;
             z-index: 10;
         }
 
-        .info-card {
-            background: #000;
-            color: #fff;
-            border-radius: 20px;
-            padding: 3rem 2rem;
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .info-card:hover {
-            transform: scale(1.02);
-        }
-
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent-green);
-        }
-
-        .healthcare { border-bottom: 4px solid #a3e635; }
-        .sustainable { border-bottom: 4px solid #60a5fa; }
-        .aerospace { border-bottom: 4px solid #fb923c; }
-
-        /* Video Section */
-        .video-section {
-            background: #000;
-            padding: 6rem 10%;
-            color: #fff;
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            border-radius: 12px;
-            overflow: hidden;
-            background: #1c1c1e;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .section-tag {
-            color: var(--accent-green);
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
-            display: block;
-        }
+        /* Responsive spacing */
+        .content-padding { padding-left: 10%; padding-right: 10%; }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-md px-10 py-4 flex justify-between items-center">
-        <div class="text-white font-bold text-xl tracking-tighter">DEUX XERO</div>
-        <div class="hidden md:flex gap-8 text-xs text-gray-400 font-semibold uppercase tracking-widest">
-            <a href="#home" class="hover:text-white transition">Home</a>
-            <a href="#opportunities" class="hover:text-white transition">Opportunities</a>
-            <a href="#insights" class="hover:text-white transition">Video Insights</a>
-        </div>
-    </nav>
+    <!-- Section 1: Hero (Dark Mode) -->
+    <section class="hero-dark relative flex flex-col justify-center items-center px-6 overflow-hidden">
+        <nav class="absolute top-0 w-full flex justify-between items-center px-12 py-8 z-50">
+            <div class="text-xl font-bold tracking-tighter uppercase">Nexus 3D</div>
+            <div class="hidden md:flex gap-10 text-[10px] uppercase tracking-widest font-bold text-gray-400">
+                <a href="#about" class="hover:text-white transition">About</a>
+                <a href="#opportunities" class="hover:text-white transition">Markets</a>
+                <a href="#insights" class="hover:text-white transition">Insights</a>
+            </div>
+        </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section">
-        <div class="wireframe-cube hidden lg:block">
-            <div class="absolute inset-0 border border-lime-400/20"></div>
-            <div class="absolute inset-0 border border-lime-400/20 rotate-45"></div>
-        </div>
-        
-        <div class="z-10">
-            <h1 class="apple-title">
-                New Business <br>
-                <span class="text-lime-400">Opportunities</span> <br>
-                in 3D Printing
-            </h1>
-            <p class="welcome-note">
-                Welcome to the future of localized manufacturing. We are transitioning from centralized factories to a distributed world where the only barrier to entry is a digital file. Explore the high-growth sectors defining 2026.
-            </p>
-            <div class="mt-8">
-                <button class="bg-lime-400 text-black px-8 py-3 rounded-full font-bold text-sm uppercase tracking-wider hover:bg-white transition">
-                    Explore Nodes
-                </button>
+        <div class="z-10 text-center md:text-left w-full max-w-6xl grid md:grid-cols-2 items-center gap-20">
+            <div>
+                <h1 class="text-4xl md:text-6xl heading-font font-bold mb-6 leading-tight" data-aos="fade-up">
+                    New Business <br>Opportunities <br> <span class="text-gray-500">in 3D Printing</span>
+                </h1>
+                <p class="text-gray-400 text-lg max-w-md mb-8 leading-relaxed" data-aos="fade-up" data-aos-delay="100">
+                    Exploring the intersection of additive manufacturing and global market shifts. Welcome to the era of on-demand industrialization.
+                </p>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <a href="#opportunities" class="pill-button">
+                        View Opportunities <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex justify-center items-center h-[400px]" data-aos="zoom-in">
+                <div class="wireframe-cube flex justify-center items-center">
+                    <!-- Internal Wireframe Detail -->
+                    <div class="absolute w-2/3 h-2/3 border border-dashed border-cyan-500/30"></div>
+                    <i class="fa-solid fa-cube text-6xl text-white opacity-20"></i>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Infographic Section -->
-    <section id="opportunities" class="info-grid">
-        <!-- Healthcare -->
-        <div class="info-card healthcare">
-            <div class="card-icon"><i class="fa-solid fa-heart-pulse"></i></div>
-            <h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Customized Healthcare Solutions</h3>
-            <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                From patient-matched titanium implants to bioprinted scaffolds, 3D printing is making medicine personal.
-            </p>
-            <ul class="text-xs text-lime-400 space-y-2 font-mono">
-                <li>+ BIO-PRINTED ORGANS</li>
-                <li>+ DENTAL CUSTOMIZATION</li>
-            </ul>
-        </div>
+    <!-- Section 2: The Infographic (Light Mode) -->
+    <section id="opportunities" class="section-curve py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-24">
+                <span class="text-[10px] uppercase tracking-[0.4em] font-black text-gray-400 mb-4 block" data-aos="fade-up">Infographic Roadmap</span>
+                <h2 class="text-5xl heading-font font-bold" data-aos="fade-up">Strategic Sectors</h2>
+            </div>
 
-        <!-- Sustainable -->
-        <div class="info-card sustainable">
-            <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
-            <h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Sustainable Circular Economy</h3>
-            <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                Redefining recycling by converting ocean plastic and waste into high-value filaments and structural parts.
-            </p>
-            <ul class="text-xs text-blue-400 space-y-2 font-mono">
-                <li>+ RECYCLED FILAMENT</li>
-                <li>+ ZERO-WASTE DESIGN</li>
-            </ul>
-        </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <!-- Visual Connection Lines (Desktop) -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-[1px] bg-gray-200 -z-0"></div>
 
-        <!-- Aerospace -->
-        <div class="info-card aerospace">
-            <div class="card-icon"><i class="fa-solid fa-rocket"></i></div>
-            <h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Aerospace Industry</h3>
-            <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                Lattice-structured parts reducing rocket weight by 40%, enabling cheaper and more frequent space access.
-            </p>
-            <ul class="text-xs text-orange-400 space-y-2 font-mono">
-                <li>+ ENGINE OPTIMIZATION</li>
-                <li>+ SATELLITE HOUSINGS</li>
-            </ul>
+                <!-- Card 1: Healthcare -->
+                <div class="glass-card p-10 z-10 flex flex-col h-full" data-aos="fade-up">
+                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-8">
+                        <i class="fa-solid fa-heart-pulse text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-6 heading-font uppercase tracking-tight">Customized Healthcare Solutions</h3>
+                    <div class="space-y-4 text-sm text-gray-500 flex-grow">
+                        <p>3D printing is enabling a shift toward patient-specific implants, reducing recovery times and surgical complications.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-blue-500 rounded-full"></div> Bio-printed Organs</li>
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-blue-500 rounded-full"></div> Patient-Matched Implants</li>
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-blue-500 rounded-full"></div> On-Demand Orthotics</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 2: Sustainable -->
+                <div class="glass-card p-10 z-10 flex flex-col h-full border-t-4 border-green-400" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-8">
+                        <i class="fa-solid fa-arrows-spin text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-6 heading-font uppercase tracking-tight">Sustainable Circular Economy Models</h3>
+                    <div class="space-y-4 text-sm text-gray-500 flex-grow">
+                        <p>Eliminate waste by converting localized plastic trash into high-value construction and furniture components.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div> Recycled Filament Production</li>
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div> Distributed Manufacturing</li>
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-green-500 rounded-full"></div> Zero-Waste Rapid Prototyping</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 3: Aerospace -->
+                <div class="glass-card p-10 z-10 flex flex-col h-full" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-8">
+                        <i class="fa-solid fa-shuttle-space text-orange-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-6 heading-font uppercase tracking-tight">Aerospace Industry Frontier</h3>
+                    <div class="space-y-4 text-sm text-gray-500 flex-grow">
+                        <p>Optimizing weight via complex internal lattices, saving millions in fuel costs for satellite and rocket launches.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-orange-500 rounded-full"></div> Lightweight Structural Parts</li>
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-orange-500 rounded-full"></div> In-Space Manufacturing</li>
+                            <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-orange-500 rounded-full"></div> Complex Engine Geometries</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Video Insights Section -->
-    <section id="insights" class="video-section">
-        <span class="section-tag">Market Intelligence</span>
-        <h2 class="text-4xl font-bold mb-12">Video Insights</h2>
-        
-        <div class="grid md:grid-cols-2 gap-12">
-            <!-- Video 1 -->
-            <div class="space-y-4">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/LJd1XwOhABg" allowfullscreen></iframe>
+    <!-- Section 3: Video Insights (Dark Mode Style) -->
+    <section id="insights" class="py-32 px-6 bg-[#0a0a0b] text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-end mb-16" data-aos="fade-up">
+                <div>
+                    <span class="text-cyan-500 font-bold text-xs uppercase tracking-widest block mb-4">Curated Content</span>
+                    <h2 class="text-4xl heading-font font-bold">Video Insights</h2>
                 </div>
-                <h4 class="font-bold text-xl">Top 5 Lucrative 3D Printing Business Ideas</h4>
-                <p class="text-gray-500 text-sm">An expert breakdown of the most accessible entry points for new entrepreneurs in the additive space.</p>
+                <div class="text-gray-500 text-sm hidden md:block">Explore visual breakdowns of the 2026 market.</div>
             </div>
 
-            <!-- Video 2 -->
-            <div class="space-y-4">
-                <div class="video-wrapper">
-                    <iframe src="https://www.youtube.com/embed/OtdvyqnqBeI" allowfullscreen></iframe>
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Video 1 -->
+                <div class="group" data-aos="fade-right">
+                    <div class="video-box aspect-video mb-6 relative group-hover:border-cyan-500/50 transition-all duration-500">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/LJd1XwOhABg" title="3D Printing Opportunities" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Lucrative Business Ideas</h4>
+                    <p class="text-gray-500 text-sm">Deep dive into 5 high-growth 3D printing startups you can launch today.</p>
                 </div>
-                <h4 class="font-bold text-xl">How 3D Printing Is Changing Business</h4>
-                <p class="text-gray-500 text-sm">A strategic look at the disruption of supply chains and the rise of on-demand manufacturing.</p>
+
+                <!-- Video 2 -->
+                <div class="group" data-aos="fade-left">
+                    <div class="video-box aspect-video mb-6 relative group-hover:border-cyan-500/50 transition-all duration-500">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/OtdvyqnqBeI" title="Future of 3D Printing" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Changing the Global Market</h4>
+                    <p class="text-gray-500 text-sm">Understanding how 3D printing is disrupting traditional supply chains.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-black py-12 px-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-gray-500 text-xs">
-        <p>&copy; 2026 DEUX XERO. All rights reserved.</p>
-        <div class="flex gap-8 mt-6 md:mt-0">
-            <a href="#" class="hover:text-white">Privacy Policy</a>
-            <a href="#" class="hover:text-white">Terms of Service</a>
-            <a href="#" class="hover:text-white">GitHub</a>
-        </div>
+    <footer class="py-20 text-center border-t border-gray-100 bg-white">
+        <div class="text-sm font-bold tracking-tighter uppercase mb-4">Nexus 3D / 2026</div>
+        <p class="text-gray-400 text-xs uppercase tracking-widest">&copy; All Rights Reserved. Designed for the Future.</p>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Simple Smooth Scroll
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: 'ease-out-quart'
+        });
+
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
