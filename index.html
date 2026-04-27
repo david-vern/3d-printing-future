@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FuturePrint | 3D Business Frontiers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Syncopate:wght@700&display=swap');
+        
+        :root {
+            --accent-1: #00f2fe;
+            --accent-2: #7000ff;
+            --bg-dark: #050510;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .heading-font { font-family: 'Syncopate', sans-serif; }
+
+        /* Animated Mesh Background */
+        .mesh-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 242, 254, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(112, 0, 255, 0.15) 0%, transparent 40%);
+            z-index: -1;
+            animation: meshMove 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes meshMove {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2) rotate(5deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .glass-card:hover {
+            border-color: var(--accent-1);
+            background: rgba(255, 255, 255, 0.07);
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .glow-text {
+            text-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
+        }
+
+        .gradient-border {
+            border: 2px solid transparent;
+            background: linear-gradient(var(--bg-dark), var(--bg-dark)) padding-box,
+                        linear-gradient(to right, var(--accent-1), var(--accent-2)) border-box;
+        }
+
+        /* 3D Floating Animation */
+        .float-icon {
+            animation: floating 4s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-25px) rotate(5deg); }
+        }
+
+        .infographic-connector {
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            height: 4px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mesh-bg"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 p-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass-card rounded-full px-8 py-3">
+            <div class="text-xl heading-font tracking-tighter flex items-center gap-2">
+                <span class="text-cyan-400">3D</span>PRO
+            </div>
+            <div class="flex gap-6 items-center">
+                <a href="#about" class="text-sm font-semibold hover:text-cyan-400 transition">Evolution</a>
+                <a href="#sectors" class="text-sm font-semibold hover:text-cyan-400 transition">Opportunities</a>
+                <button class="gradient-border px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest">Connect</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col items-center justify-center pt-20 px-6 text-center">
+        <div class="float-icon mb-8">
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 16V8L12 3L3 8V16L12 21L21 16Z" stroke="#00f2fe" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 3V12L3 8" stroke="#00f2fe" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21 8L12 12" stroke="#00f2fe" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 21V12" stroke="#00f2fe" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        
+        <h1 class="text-6xl md:text-8xl heading-font mb-6 leading-none" data-aos="zoom-out">
+            DIMENSION <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 glow-text">SHIFT</span>
+        </h1>
+        
+        <div class="max-w-2xl glass-card p-10 rounded-[40px]" data-aos="fade-up" data-aos-delay="200">
+            <p class="text-lg md:text-xl text-slate-300 font-light leading-relaxed">
+                Welcome to the era of <span class="text-white font-semibold">Atomic Manufacturing</span>. We aren't just printing shapes; we are printing the future of business equity, sustainability, and human potential.
+            </p>
+        </div>
+
+        <div class="mt-12 flex gap-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="w-1 h-12 bg-gradient-to-b from-cyan-400 to-transparent"></div>
+            <p class="text-xs uppercase tracking-[0.3em] text-cyan-400 font-bold self-center">Scroll to Explore</p>
+        </div>
+    </section>
+
+    <!-- Infographic Section -->
+    <section id="sectors" class="py-32 px-6 overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-20" data-aos="fade-right">
+                <h2 class="text-4xl heading-font mb-2">New <span class="text-purple-500">Frontiers</span></h2>
+                <div class="w-24 h-1 bg-cyan-400"></div>
+            </div>
+
+            <!-- Colorful Interactive Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Opportunity 1 -->
+                <div class="glass-card p-1 rounded-[30px]" data-aos="fade-up">
+                    <div class="p-8 h-full flex flex-col">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="p-4 bg-cyan-500/10 rounded-2xl">
+                                <i class="fa-solid fa-microchip text-3xl text-cyan-400"></i>
+                            </div>
+                            <span class="text-xs font-black text-cyan-400/40 uppercase">01 / Tech</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 uppercase">Hyper-Personalization</h3>
+                        <p class="text-slate-400 mb-6">Stop selling products, start selling files. Businesses now offer 1-of-1 custom tech housings and ergonomic gear.</p>
+                        <div class="mt-auto pt-6 border-t border-white/5 flex gap-2">
+                            <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-[10px] text-cyan-300 uppercase">Mass Customization</span>
+                            <span class="px-3 py-1 rounded-full bg-cyan-500/10 text-[10px] text-cyan-300 uppercase">D2C Models</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opportunity 2 -->
+                <div class="glass-card p-1 rounded-[30px]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-8 h-full flex flex-col">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="p-4 bg-purple-500/10 rounded-2xl">
+                                <i class="fa-solid fa-dna text-3xl text-purple-400"></i>
+                            </div>
+                            <span class="text-xs font-black text-purple-400/40 uppercase">02 / Bio</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 uppercase">Regenerative Design</h3>
+                        <p class="text-slate-400 mb-6">3D bio-printing is creating a trillion-dollar industry in custom scaffolds for organ regrowth and medical testing.</p>
+                        <div class="mt-auto pt-6 border-t border-white/5 flex gap-2">
+                            <span class="px-3 py-1 rounded-full bg-purple-500/10 text-[10px] text-purple-300 uppercase">Biotech</span>
+                            <span class="px-3 py-1 rounded-full bg-purple-500/10 text-[10px] text-purple-300 uppercase">Pharma 2.0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opportunity 3 -->
+                <div class="glass-card p-1 rounded-[30px]" data-aos="fade-up">
+                    <div class="p-8 h-full flex flex-col">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="p-4 bg-pink-500/10 rounded-2xl">
+                                <i class="fa-solid fa-shirt text-3xl text-pink-400"></i>
+                            </div>
+                            <span class="text-xs font-black text-pink-400/40 uppercase">03 / Lifestyle</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 uppercase">Zero-Waste Fashion</h3>
+                        <p class="text-slate-400 mb-6">On-demand 3D knitted garments and printed footwear eliminate overstock and warehouse costs forever.</p>
+                        <div class="mt-auto pt-6 border-t border-white/5 flex gap-2">
+                            <span class="px-3 py-1 rounded-full bg-pink-500/10 text-[10px] text-pink-300 uppercase">Sustainable</span>
+                            <span class="px-3 py-1 rounded-full bg-pink-500/10 text-[10px] text-pink-300 uppercase">Retail Tech</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opportunity 4 -->
+                <div class="glass-card p-1 rounded-[30px]" data-aos="fade-up" data-aos-delay="100">
+                    <div class="p-8 h-full flex flex-col">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="p-4 bg-orange-500/10 rounded-2xl">
+                                <i class="fa-solid fa-rocket text-3xl text-orange-400"></i>
+                            </div>
+                            <span class="text-xs font-black text-orange-400/40 uppercase">04 / Aero</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 uppercase">Orbital Supply Chains</h3>
+                        <p class="text-slate-400 mb-6">Manufacturing in zero-gravity allows for materials that cannot be created on Earth. The next gold rush is in space.</p>
+                        <div class="mt-auto pt-6 border-t border-white/5 flex gap-2">
+                            <span class="px-3 py-1 rounded-full bg-orange-500/10 text-[10px] text-orange-300 uppercase">Space Tech</span>
+                            <span class="px-3 py-1 rounded-full bg-orange-500/10 text-[10px] text-orange-300 uppercase">Deep Tech</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 text-center border-t border-white/10">
+        <div class="heading-font text-2xl mb-4 tracking-tighter">FUTURE<span class="text-cyan-400">PRINT</span></div>
+        <p class="text-slate-500 text-sm">Empowering the creators of tomorrow, today.</p>
+    </footer>
+
+    <!-- Animation Library Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize Scroll Animations
+        AOS.init({
+            duration: 1000,
+            once: false,
+            mirror: true
+        });
+
+        // Add a parallax effect to the mesh background
+        window.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            document.querySelector('.mesh-bg').style.transform = `translate(${x * 20}px, ${y * 20}px) scale(1.1)`;
+        });
+    </script>
+</body>
+</html>
