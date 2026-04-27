@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dimension | 3D Printing Business Hub</title>
+    <title>Dimension | 3D Business Frontiers</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@700&display=swap');
 
         :root {
             --bg-dark: #000000;
-            --bg-light: #f5f5f7;
-            --accent-green: #d1fae5;
             --accent-glow: #10b981;
+            --grid-color: rgba(255, 255, 255, 0.05);
         }
 
         body {
@@ -23,58 +22,31 @@
             background-color: var(--bg-dark);
             color: white;
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            cursor: none; /* Custom cursor implementation */
         }
 
         .hero-font { font-family: 'Space+Grotesk', sans-serif; }
 
-        .full-page {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 4rem 2rem;
-            position: relative;
+        /* Custom Techy Cursor */
+        #cursor {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-glow);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
         }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .glass-card:hover {
-            border-color: var(--accent-glow);
-            transform: scale(1.02);
-        }
-
-        .infographic-line {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            z-index: 0;
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 16px;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Apple-style smooth scroll sections */
-        section {
-            scroll-snap-align: start;
+        #cursor-follower {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--accent-glow);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.2s ease, opacity 0.3s ease;
         }
 
         .snap-container {
@@ -83,116 +55,178 @@
             scroll-snap-type: y mandatory;
         }
 
-        .btn-action {
-            background: white;
-            color: black;
-            padding: 0.75rem 2rem;
-            border-radius: 100px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+        section {
+            height: 100vh;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
-        .btn-action:hover {
-            background: var(--accent-glow);
-            color: white;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        /* Animated Grid Background */
+        .grid-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .reveal-box {
+            overflow: hidden;
+            display: block;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 2px; /* Minimalist sharp edges or slight round */
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .glass-panel:hover {
+            border-color: var(--accent-glow);
+            background: rgba(16, 185, 129, 0.03);
+        }
+
+        .video-card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.5);
+        }
+
+        .btn-tech {
+            border: 1px solid white;
+            padding: 1rem 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-tech:hover {
+            background: white;
+            color: black;
+        }
+
+        /* Scanline effect */
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(16, 185, 129, 0.1);
+            position: absolute;
+            z-index: 10;
+            top: -10px;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0%; }
+            100% { top: 100%; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+
     <div class="snap-container">
         
         <!-- SECTION 1: HERO -->
-        <section id="home" class="full-page bg-black overflow-hidden">
-            <div class="max-w-7xl mx-auto w-full z-10">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-20">
-                    <h1 class="hero-font text-6xl md:text-8xl leading-none tracking-tighter" id="hero-title">
-                        NEW BUSINESS <br>
-                        <span class="text-slate-500">OPPORTUNITIES</span> <br>
-                        IN 3D PRINTING
+        <section id="home">
+            <div class="grid-bg"></div>
+            <div class="scanline"></div>
+            <div class="max-w-7xl mx-auto w-full px-6 z-10">
+                <div class="reveal-box">
+                    <h1 class="hero-font text-7xl md:text-[11rem] leading-[0.9] tracking-tighter" id="hero-title">
+                        3D <span class="text-slate-700">PRINT</span><br>FRONTIER
                     </h1>
-                    <div class="max-w-xs text-sm text-slate-400 mt-8 md:mt-0" id="welcome-note">
-                        <p class="mb-4">WELCOME NOTE</p>
-                        <p>Exploring the frontier of additive manufacturing. We analyze the shift from global supply chains to localized, high-precision digital factories.</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row justify-between items-start mt-12">
+                    <div class="max-w-md glass-panel p-8" id="hero-note">
+                        <p class="text-xs tracking-[0.3em] text-emerald-400 mb-4 font-bold">WELCOME NOTE</p>
+                        <p class="text-slate-400 leading-relaxed text-sm">
+                            Decoding the shift toward decentralized production. We explore how additive manufacturing is not just a tool, but the foundation of the next global economic architecture.
+                        </p>
                     </div>
-                </div>
-                
-                <!-- Wireframe 3D Visual (SVG) -->
-                <div class="flex justify-center py-12" id="hero-visual">
-                    <svg width="240" height="240" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.5" class="text-emerald-400 opacity-50 animate-pulse">
-                        <path d="M21 16V8L12 3L3 8V16L12 21L21 16Z" />
-                        <path d="M12 3V12L3 8" />
-                        <path d="M12 12L21 8" />
-                        <path d="M12 12V21" />
-                        <circle cx="12" cy="12" r="2" fill="currentColor" />
-                    </svg>
-                </div>
-                
-                <div class="flex justify-center mt-10">
-                    <button class="btn-action" onclick="document.getElementById('healthcare').scrollIntoView({behavior:'smooth'})">
-                        Begin Exploration <i class="fa-solid fa-arrow-down ml-2"></i>
-                    </button>
+                    
+                    <div class="mt-12 md:mt-0 flex flex-col items-end gap-6">
+                        <div class="text-right">
+                            <span class="block text-4xl hero-font text-white">2026</span>
+                            <span class="text-xs uppercase tracking-widest text-slate-500 italic">Market Insight</span>
+                        </div>
+                        <button class="btn-tech" onclick="document.getElementById('healthcare').scrollIntoView({behavior:'smooth'})">
+                            Enter System
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- SECTION 2: HEALTHCARE -->
-        <section id="healthcare" class="full-page bg-[#0a0a0a]">
-            <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
-                <div class="order-2 md:order-1">
-                    <span class="text-emerald-400 font-bold tracking-widest text-xs">SECTOR 01</span>
-                    <h2 class="hero-font text-5xl md:text-7xl my-6">CUSTOM <br>HEALTHCARE</h2>
-                    <p class="text-slate-400 text-lg leading-relaxed mb-8">
-                        The medical industry is transitioning from mass-produced components to 1-to-1 patient-matched solutions. This eliminates rejection rates and improves recovery times drastically.
+        <section id="healthcare" class="bg-[#050505]">
+            <div class="grid-bg"></div>
+            <div class="max-w-7xl mx-auto px-6 z-10 w-full grid md:grid-cols-2 gap-16 items-center">
+                <div class="reveal-box">
+                    <span class="text-emerald-400 text-xs tracking-widest block mb-4">SYSTEM_01: MED_TECH</span>
+                    <h2 class="hero-font text-6xl md:text-8xl mb-8">CUSTOM<br>HEALTH</h2>
+                    <p class="text-slate-400 max-w-sm leading-relaxed mb-8">
+                        The intersection of biology and engineering. Creating anatomical structures that are perfectly matched to the user's DNA and physical geometry.
                     </p>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="glass-card p-6">
-                            <h4 class="font-bold text-emerald-400">Prosthetics</h4>
-                            <p class="text-xs text-slate-500 mt-2">Lightweight, affordable, and perfectly fitted designs.</p>
+                    <div class="flex gap-10 text-xs tracking-widest">
+                        <div>
+                            <p class="text-white mb-2">01. ORTHOTICS</p>
+                            <p class="text-slate-600">Weight-optimized supports</p>
                         </div>
-                        <div class="glass-card p-6">
-                            <h4 class="font-bold text-emerald-400">Dental</h4>
-                            <p class="text-xs text-slate-500 mt-2">Digital scanning to immediate ceramic printing.</p>
+                        <div>
+                            <p class="text-white mb-2">02. IMPLANTS</p>
+                            <p class="text-slate-600">Bio-compatible titanium</p>
                         </div>
                     </div>
                 </div>
-                <div class="order-1 md:order-2 flex justify-center">
-                    <div class="w-80 h-80 bg-emerald-500/10 rounded-full flex items-center justify-center border border-emerald-500/20">
-                        <i class="fa-solid fa-heart-pulse text-8xl text-emerald-400 opacity-50"></i>
+                <div class="hidden md:flex justify-end">
+                    <div class="w-96 h-[500px] glass-panel border-emerald-500/20 relative flex items-center justify-center">
+                        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+                        <i class="fa-solid fa-heart-pulse text-9xl text-emerald-400 opacity-20 floating"></i>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 3: SUSTAINABILITY -->
-        <section id="sustainability" class="full-page bg-white text-black">
-            <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
-                <div class="flex justify-center">
-                    <div class="w-80 h-80 bg-black/5 rounded-full flex items-center justify-center border border-black/10">
-                        <i class="fa-solid fa-arrows-spin text-8xl text-black opacity-20"></i>
+        <!-- SECTION 3: CIRCULAR ECONOMY -->
+        <section id="circular" class="bg-white text-black">
+            <div class="max-w-7xl mx-auto px-6 z-10 w-full grid md:grid-cols-2 gap-16 items-center">
+                <div class="flex justify-start">
+                    <div class="w-full aspect-square max-w-md bg-black/5 flex items-center justify-center relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-black translate-y-full group-hover:translate-y-0 transition-transform duration-700"></div>
+                        <i class="fa-solid fa-arrows-spin text-[12rem] text-black group-hover:text-white transition-colors duration-700"></i>
                     </div>
                 </div>
                 <div>
-                    <span class="text-slate-500 font-bold tracking-widest text-xs uppercase">Sector 02</span>
-                    <h2 class="hero-font text-5xl md:text-7xl my-6">CIRCULAR <br>ECONOMY</h2>
-                    <p class="text-slate-700 text-lg leading-relaxed mb-8">
-                        3D printing allows for "Distributed Manufacturing." By using recycled plastics and printing on-site, we reduce the carbon footprint of logistics to nearly zero.
+                    <span class="text-slate-400 text-xs tracking-widest block mb-4">SYSTEM_02: SUSTAIN</span>
+                    <h2 class="hero-font text-6xl md:text-8xl mb-8">CIRCULAR<br>MODELS</h2>
+                    <p class="text-slate-600 max-w-sm leading-relaxed mb-10 text-lg">
+                        Waste is a design flaw. 3D printing enables businesses to recover materials on-site, creating a truly closed-loop manufacturing cycle.
                     </p>
-                    <div class="space-y-4">
-                        <div class="p-6 border border-black/10 rounded-2xl flex items-center gap-4 hover:bg-black hover:text-white transition-all cursor-default">
-                            <i class="fa-solid fa-leaf text-2xl"></i>
-                            <div>
-                                <h4 class="font-bold">Zero-Waste Production</h4>
-                                <p class="text-sm opacity-60">Add material only where needed.</p>
-                            </div>
+                    <div class="space-y-6">
+                        <div class="border-b border-black/10 pb-4 flex justify-between items-end">
+                            <span class="font-bold">Localized Print Hubs</span>
+                            <span class="text-xs">70% Less Logistical CO2</span>
                         </div>
-                        <div class="p-6 border border-black/10 rounded-2xl flex items-center gap-4 hover:bg-black hover:text-white transition-all cursor-default">
-                            <i class="fa-solid fa-recycle text-2xl"></i>
-                            <div>
-                                <h4 class="font-bold">Recycled Filaments</h4>
-                                <p class="text-sm opacity-60">Turning ocean plastic into products.</p>
-                            </div>
+                        <div class="border-b border-black/10 pb-4 flex justify-between items-end">
+                            <span class="font-bold">Material Upcycling</span>
+                            <span class="text-xs">Plastic-to-Part conversion</span>
                         </div>
                     </div>
                 </div>
@@ -200,110 +234,140 @@
         </section>
 
         <!-- SECTION 4: AEROSPACE -->
-        <section id="aerospace" class="full-page bg-black">
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16">
-                    <span class="text-blue-400 font-bold tracking-widest text-xs uppercase">Sector 03</span>
-                    <h2 class="hero-font text-5xl md:text-8xl mt-4">AEROSPACE</h2>
-                </div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="glass-card p-10 text-center">
-                        <i class="fa-solid fa-rocket text-blue-400 text-4xl mb-6"></i>
-                        <h3 class="text-xl font-bold mb-4">Weight Reduction</h3>
-                        <p class="text-sm text-slate-400">Complex internal lattice structures reduce part weight by 40% while maintaining strength.</p>
+        <section id="aerospace">
+            <div class="grid-bg"></div>
+            <div class="max-w-7xl mx-auto px-6 z-10 w-full text-center">
+                <span class="text-emerald-400 text-xs tracking-widest block mb-6">SYSTEM_03: AERO_DYNAMICS</span>
+                <h2 class="hero-font text-7xl md:text-9xl mb-20">AEROSPACE</h2>
+                
+                <div class="grid md:grid-cols-3 gap-1 px-4">
+                    <div class="glass-panel p-12 text-left group">
+                        <div class="h-1 w-0 bg-emerald-400 group-hover:w-full transition-all duration-700 mb-8"></div>
+                        <h4 class="hero-font text-2xl mb-4">LATTICE TECH</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">Engineered internal structures that mimic bone density to maximize strength while minimizing gravitational pull.</p>
                     </div>
-                    <div class="glass-card p-10 text-center border-blue-500/30">
-                        <i class="fa-solid fa-satellite text-blue-400 text-4xl mb-6"></i>
-                        <h3 class="text-xl font-bold mb-4">Consolidation</h3>
-                        <p class="text-sm text-slate-400">Combine 20 separate parts into a single 3D-printed assembly to eliminate failure points.</p>
+                    <div class="glass-panel p-12 text-left group">
+                        <div class="h-1 w-0 bg-emerald-400 group-hover:w-full transition-all duration-700 mb-8"></div>
+                        <h4 class="hero-font text-2xl mb-4">CONSOLIDATION</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">Reducing assembly complexity by printing 100+ components as a single, unified functional unit.</p>
                     </div>
-                    <div class="glass-card p-10 text-center">
-                        <i class="fa-solid fa-jet-fighter-up text-blue-400 text-4xl mb-6"></i>
-                        <h3 class="text-xl font-bold mb-4">Rapid Prototyping</h3>
-                        <p class="text-sm text-slate-400">Go from digital design to wind-tunnel testing in 24 hours instead of months.</p>
+                    <div class="glass-panel p-12 text-left group">
+                        <div class="h-1 w-0 bg-emerald-400 group-hover:w-full transition-all duration-700 mb-8"></div>
+                        <h4 class="hero-font text-2xl mb-4">SPACE OPS</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed">In-situ resource utilization. Printing spare parts in zero-gravity environments to sustain long-term missions.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 5: VIDEO INSIGHTS -->
-        <section id="insights" class="full-page bg-[#050505]">
-            <div class="max-w-7xl mx-auto w-full">
-                <h2 class="hero-font text-4xl mb-12 flex items-center gap-4">
-                    VIDEO INSIGHTS <span class="h-[1px] bg-slate-800 flex-grow"></span>
-                </h2>
-                
+        <!-- SECTION 5: VIDEOS -->
+        <section id="insights" class="bg-[#080808]">
+            <div class="grid-bg"></div>
+            <div class="max-w-7xl mx-auto px-6 z-10 w-full">
+                <div class="flex justify-between items-end mb-16">
+                    <h2 class="hero-font text-5xl">VISUAL<br>DATA</h2>
+                    <p class="text-xs text-slate-500 max-w-[200px]">Live stream and market analysis from industry leaders.</p>
+                </div>
+
                 <div class="grid md:grid-cols-2 gap-12">
-                    <div class="space-y-6">
-                        <div class="video-wrapper border border-white/10 shadow-2xl">
-                            <iframe src="https://www.youtube.com/embed/LJd1XwOhABg" title="3D Printing Opportunity 1" frameborder="0" allowfullscreen></iframe>
+                    <div class="group">
+                        <div class="video-card glass-panel p-2">
+                            <div class="video-wrapper aspect-video relative overflow-hidden rounded-lg">
+                                <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/LJd1XwOhABg" frameborder="0" allowfullscreen></iframe>
+                            </div>
                         </div>
-                        <h3 class="font-bold text-xl">The 3D Printing Business Revolution</h3>
-                        <p class="text-slate-500">Expert analysis on current market trends and future projections for small-to-medium digital factories.</p>
+                        <div class="mt-6 flex justify-between items-center">
+                            <span class="text-sm font-bold">BUSINESS REVOLUTION</span>
+                            <i class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform"></i>
+                        </div>
                     </div>
-                    <div class="space-y-6">
-                        <div class="video-wrapper border border-white/10 shadow-2xl">
-                            <iframe src="https://www.youtube.com/embed/OtdvyqnqBeI" title="3D Printing Opportunity 2" frameborder="0" allowfullscreen></iframe>
+                    <div class="group">
+                        <div class="video-card glass-panel p-2">
+                            <div class="video-wrapper aspect-video relative overflow-hidden rounded-lg">
+                                <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/OtdvyqnqBeI" frameborder="0" allowfullscreen></iframe>
+                            </div>
                         </div>
-                        <h3 class="font-bold text-xl">Changing the Business Landscape</h3>
-                        <p class="text-slate-500">How major industries are pivoting toward additive manufacturing to solve logistical nightmares.</p>
+                        <div class="mt-6 flex justify-between items-center">
+                            <span class="text-sm font-bold">CHANGING LANDSCAPES</span>
+                            <i class="fa-solid fa-arrow-right -rotate-45 group-hover:rotate-0 transition-transform"></i>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <footer class="mt-20 pt-10 border-t border-white/5 text-center text-slate-600 text-xs tracking-widest uppercase">
-                &copy; 2026 DIMENSION HUB. ALL RIGHTS RESERVED.
-            </footer>
         </section>
 
     </div>
 
     <script>
-        // Initialize GSAP
+        // GSAP Initialization
         gsap.registerPlugin(ScrollTrigger);
 
-        // Hero Reveal
-        gsap.from("#hero-title", {
-            y: 100,
-            opacity: 0,
-            duration: 1.5,
-            ease: "power4.out"
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        const follower = document.getElementById('cursor-follower');
+        
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0 });
+            gsap.to(follower, { x: e.clientX - 10, y: e.clientY - 10, duration: 0.3 });
         });
 
-        gsap.from("#welcome-note", {
-            x: 50,
-            opacity: 0,
-            duration: 1.5,
-            delay: 0.5,
-            ease: "power4.out"
-        });
-
-        // Section Titles reveal
-        gsap.utils.toArray('h2').forEach(heading => {
-            gsap.from(heading, {
-                scrollTrigger: {
-                    trigger: heading,
-                    start: "top 80%",
-                    scroller: ".snap-container"
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1
+        // Add hover effects for buttons/panels
+        document.querySelectorAll('button, .glass-panel, a').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                gsap.to(follower, { scale: 2.5, background: 'rgba(16, 185, 129, 0.1)', duration: 0.3 });
+            });
+            el.addEventListener('mouseleave', () => {
+                gsap.to(follower, { scale: 1, background: 'transparent', duration: 0.3 });
             });
         });
 
-        // Cards reveal
-        gsap.utils.toArray('.glass-card').forEach(card => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top 90%",
-                    scroller: ".snap-container"
-                },
-                y: 30,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.2
+        // Hero Animation
+        gsap.from("#hero-title", {
+            y: 200,
+            opacity: 0,
+            duration: 1.8,
+            ease: "expo.out",
+            stagger: 0.2
+        });
+
+        gsap.from("#hero-note", {
+            y: 50,
+            opacity: 0,
+            duration: 1.5,
+            delay: 0.8,
+            ease: "power3.out"
+        });
+
+        // Reveal Animations for sections
+        const sections = gsap.utils.toArray('section');
+        sections.forEach(section => {
+            const h2 = section.querySelector('h2');
+            const p = section.querySelector('p');
+            
+            if(h2) {
+                gsap.from(h2, {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 50%",
+                        scroller: ".snap-container"
+                    },
+                    y: 100,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: "expo.out"
+                });
+            }
+        });
+
+        // Dynamic Grid Movement on Mouse Move
+        window.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            gsap.to(".grid-bg", {
+                x: moveX,
+                y: moveY,
+                duration: 1,
+                ease: "power2.out"
             });
         });
     </script>
